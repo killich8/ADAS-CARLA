@@ -1,0 +1,9 @@
+app:
+  name: adas-carla
+  version: 0.1.0
+  environment: dev
+
+carla:
+  host: localhost
+  port: 2000
+  timeout: 30
