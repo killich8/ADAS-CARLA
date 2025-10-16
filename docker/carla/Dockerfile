@@ -9,7 +9,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 # Metadata
 LABEL maintainer="DevOps Team"
-LABEL description="CARLA Simulator for ADAS-Forge synthetic data generation"
+LABEL description="CARLA Simulator for ADAS-CARLA synthetic data generation"
 LABEL version="${CARLA_VERSION}"
 
 # System dependencies

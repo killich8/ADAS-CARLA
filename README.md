@@ -1,36 +1,102 @@
 ### High-Performance Synthetic Data Generation Pipeline for Autonomous Vehicle Development
 
-**ADAS-CARLA** provides a robust and scalable framework for generating **high-quality synthetic training data** for autonomous driving research.
-Built on top of the **CARLA simulator**, it automates large-scale scenario generation and data validation, reducing data collection time from weeks to hours while ensuring **production-level reliability**, **reproducible results**, and **consistent performance** across different environments.
+**ADAS-CARLA** is a cloud-native, highly **scalable** **synthetic data** generation platform for autonomous driving research. The system leverages **CARLA simulator** to generate diverse, high-quality training data while maintaining cost efficiency through intelligent resource management and auto-scaling.
 
 ## Key Results
 Comming soon
 
 ## Architecture Overview
+The following diagram illustrates the high-level architecture of **ADAS-CARLA**, from user interaction to data storage and infrastructure orchestration. 
 
 ```mermaid
-%%{init: {"theme": "neutral", "flowchart": {"curve": "basis"}} }%%
 graph TB
-    subgraph "Data Generation Layer"
-        A[CARLA Simulators] -->|Raw Data| B[Data Processor]
-        B -->|Validated Data| C[(S3 Storage)]
+    subgraph "External Layer"
+        U[Users/Data Scientists]
+        CI[CI/CD Systems]
+        ML[ML Training Systems]
     end
     
-    subgraph "Orchestration Layer"
-        D[Jenkins Pipeline] -->|Triggers| A
-        E[Kubernetes HPA] -->|Scales| A
-        F[Airflow DAG] -->|Schedules| B
+    subgraph "API Gateway Layer"
+        AG[Kong/Nginx Ingress]
+        AUTH[Auth Service - Keycloak]
     end
     
-    subgraph "ML Layer"
-        C -->|Training Data| G[MLflow]
-        G -->|Models| H[(Model Registry)]
+    subgraph "Application Layer"
+        API[FastAPI Service]
+        WEB[Web Dashboard]
+        SCH[Scheduler Service]
     end
     
-    subgraph "Monitoring"
-        I[Prometheus] -->|Metrics| J[Grafana]
-        K[ELK Stack] -->|Logs| J
+    subgraph "Processing Layer"
+        subgraph "Simulation Cluster"
+            CS1[CARLA Sim Pod 1]
+            CS2[CARLA Sim Pod 2]
+            CSN[CARLA Sim Pod N]
+        end
+        
+        subgraph "Data Processing"
+            DP1[Processor Pod 1]
+            DP2[Processor Pod 2]
+            DPN[Processor Pod N]
+        end
+        
+        QUEUE[Redis Queue/RabbitMQ]
+        WORK[Celery Workers]
     end
+    
+    subgraph "Data Layer"
+        S3[(S3/MinIO Storage)]
+        PG[(PostgreSQL)]
+        REDIS[(Redis Cache)]
+        ES[(Elasticsearch)]
+    end
+    
+    subgraph "Infrastructure Layer"
+        K8S[Kubernetes/EKS]
+        TF[Terraform]
+        ANS[Ansible]
+    end
+    
+    subgraph "Monitoring Layer"
+        PROM[Prometheus]
+        GRAF[Grafana]
+        ALERT[AlertManager]
+        JAEG[Jaeger]
+    end
+    
+    U --> AG
+    CI --> AG
+    ML --> S3
+    
+    AG --> AUTH
+    AG --> API
+    AG --> WEB
+    
+    API --> SCH
+    SCH --> QUEUE
+    QUEUE --> WORK
+    WORK --> CS1
+    WORK --> CS2
+    WORK --> CSN
+    
+    CS1 --> DP1
+    CS2 --> DP2
+    CSN --> DPN
+    
+    DP1 --> S3
+    DP2 --> S3
+    DPN --> S3
+    
+    API --> PG
+    API --> REDIS
+    WORK --> REDIS
+    
+    K8S --> CS1
+    K8S --> CS2
+    K8S --> CSN
+    
+    PROM --> GRAF
+    PROM --> ALERT
 ```
 
 ## Quick Start
