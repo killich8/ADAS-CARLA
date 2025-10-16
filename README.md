@@ -134,7 +134,7 @@ Comming soon
 
 ## Project Structure
 ```
-adas-forge/
+adas-carla/
 ├── infrastructure/        # IaC (Terraform, Ansible, K8s)
 ├── src/                   # Application code
 │   ├── simulator/         # CARLA integration
