@@ -9,7 +9,7 @@ carla==0.9.15
 
 # Web framework & API
 fastapi==0.103.0
-uvicorn[standard]==0.23.2
+uvicorn[standard]==0.24.0
 pydantic==2.3.0
 pydantic-settings==2.0.3
 python-multipart==0.0.6
@@ -22,13 +22,13 @@ alembic==1.11.2
 asyncpg==0.28.0
 
 # Cloud & AWS
-boto3==1.28.25
-botocore==1.31.25
+boto3==1.28.17
+botocore==1.31.17
 
 # Machine Learning & Deep Learning
 torch==2.0.1
 torchvision==0.15.2
-tensorflow==2.13.0
+tensorflow==2.15.0
 onnx==1.14.0
 onnxruntime==1.15.1
 
@@ -70,7 +70,7 @@ aiofiles==23.2.1
 aioboto3==11.3.0
 
 # Caching
-redis==4.6.0
+redis==5.0.1
 hiredis==2.2.3
 cachetools==5.3.1
 
@@ -92,7 +92,7 @@ pylint==2.17.5
 mypy==1.4.1
 isort==5.12.0
 bandit==1.7.5
-safety==2.3.5
+safety==3.2.0
 pre-commit==3.3.3
 
 # Documentation
@@ -118,8 +118,8 @@ humanize==4.7.0
 
 # Serialization
 msgpack==1.0.5
-protobuf==4.23.4
-apache-beam==2.49.0
+protobuf==4.25.3
+apache-beam==2.56.0
 
 # DevOps tools
 ansible==8.2.0
@@ -129,9 +129,8 @@ paramiko==3.3.1
 fabric==3.1.0
 
 # Data validation
-great-expectations==0.17.12
-pandera==0.16.1
-pydantic==2.3.0
+great-expectations==0.18.19
+pandera==0.18.0
 
 # Visualization
 matplotlib==3.7.2
@@ -146,7 +145,7 @@ prophet==1.1.4
 
 # HTTP & Networking
 requests==2.31.0
-urllib3==2.0.4
+urllib3==1.26.16
 aiohttp==3.8.5
 websockets==11.0.3
 
@@ -164,7 +163,7 @@ tzdata==2023.3
 watchdog==3.0.0  # for auto-reload in dev
 
 # Infrastructure
-terraform-compliance==1.3.41
+# terraform-compliance==1.3.48  # Removed due to IPython version conflicts
 checkov==2.4.9
 
 # Additional ML tools
